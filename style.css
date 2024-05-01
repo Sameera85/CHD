@@ -1,0 +1,145 @@
+sidebar {
+    background-color: #3380FF;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.sidebar-title {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding: 10px;
+    
+    transition: 0.3s;
+    font-weight: bold;
+    text-align: center;
+    background-color: #3380FF;
+    font-family: 'Times New Roman', Times, serif;
+   font-size: small;
+    padding: 10px;
+    opacity: 0.8;
+}
+.my-container {
+    max-width: 2000 auto;
+    text-align: center;
+    background-color: bisque;
+}
+.my-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #3380FF;
+    width:703px;
+    padding: 10px;
+    opacity: 0.8;
+    margin-bottom: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #fff;
+
+
+}
+.sub-header {
+    font-size: 24px; 
+    font-weight: bold;
+    font-size:small;
+    margin-bottom: 20px;
+    color: #0074e4;
+    
+    
+}
+.my-image {
+    width: 400px;
+    text-align: center;
+} 
+
+.streamlit-expander {
+    background-color: #f0f0f0;
+    border: 2px solid #0074e4;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #0074e4;
+    font-family: "Times New Roman";
+}
+
+
+/* Alert box adjustments */
+.stAlert {
+    width: 80%;  /* Making the alert box narrower */
+    margin: 1rem auto !important; /* Centering the alert box */
+    text-align: center;  /* Centering text within the alert box */
+}
+
+/* Metric adjustments for better alignment */
+.stMetric {
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* Ensuring other elements like buttons and inputs are also centered */
+.stButton, .stTextInput, .stSelectbox, .stNumberInput, .stTextArea, .stMarkdown, .css-2trqyj, .stPlotlyChart {
+    margin: auto;
+}
+
+.streamlit-expander {
+    background-color: #f0f0f0;
+    border: 2px solid #0074e4;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #0074e4;
+    font-family: "Times New Roman";
+}
+.insight-text {
+    color: #3380FF;
+    font-weight: bold;
+    font-family: 'Times New Roman';
+}
+html, body, [class*="css"] {
+    font-family: 'Times New Roman', serif;
+}
+
+/* Style for sidebar buttons */
+.sidebar.stButton>button {
+    width: 100%;
+    margin: 5px 0;
+    color: #ffffff; /* White text color */
+    background-color: #007BFF; /* Blue background color */
+    border-radius: 5px;
+    border: 1px solid transparent;
+}
+
+.sidebar.stButton>button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+/* Customize the 'Predict Risk' button */
+.stButton>button {
+    width: 20%;
+    margin: auto;
+    border-radius: 8px;
+    border: 2px solid #3380FF;
+    color: white;
+    background-color: #3380FF;
+    font-size: 20px;
+    display: block; /* Center button in its container */
+    font-family: 'Times New Roman', serif;
+    display: flex; /* Use flexbox to align text horizontally */
+    justify-content: center; /* Center the text horizontally */
+}
+
+/* Centering content in main area */
+.css-1d391kg {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+/* Centering plots and widgets specifically */
+.stButton, .stTextInput, .stSelectbox, .stNumberInput, .stTextArea, .stMarkdown, .css-2trqyj, .stPlotlyChart {
+    margin: auto;
+}
+
