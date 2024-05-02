@@ -11,7 +11,7 @@ import plotly.express as px #for graphs and data visualization
 sns.set() #setting seaborn as default for plots
 import pickle
 
-# CSS Styling
+# CSS Stylingstre
 
 # Load the contents of CSS file
 with open('style.css') as f:
@@ -220,7 +220,10 @@ def show_home_page():
     ### 4.9 How are systolic blood pressure, diastolic blood pressure, total cholesterol, and 10-year coronary heart disease risk related to each other?
 
     # Sidebar Filters
-    st.sidebar.title("Scatter Plot")
+    with st.sidebar:
+      st.markdown('<h2 style="color: orange; text-align: center;font-family:Times New Roman;">Scatter Plot:</h2>', unsafe_allow_html=True)
+
+    #st.sidebar.title("Scatter Plot")
     age_group = st.sidebar.slider("Select Age Group", min_value=30, max_value=70, value=(30, 70))
 
 
@@ -314,7 +317,8 @@ def show_prediction_page():
     
     # Sidebar input for prediction
     with st.sidebar:
-        st.subheader("Enter Your Details")
+        #st.subheader("Enter Your Details")
+        st.markdown('<h2 style="color: orange; text-align: center;">Enter Your Details:</h2>', unsafe_allow_html=True)
         sysBP = st.number_input('Systolic Blood Pressure', 80, 200, 120)
         glucose = st.number_input('Glucose Level', 40, 400, 100)
         age = st.number_input('Age', 30, 80, 50)
@@ -324,7 +328,19 @@ def show_prediction_page():
     
     
     # Improved "Additional Details" section with columns
-    st.subheader("Additional Details:")
+    # Using markdown to create a styled and centered subheader
+    #st.markdown('<h2 style="color: orange; text-align: center;">Additional Details:</h2>', unsafe_allow_html=True)
+    st.markdown("""
+                <style>
+                    #main-container h4 {
+                        color: orange;
+                        text-align: center;
+                        font-family: 'Times New Roman', Times, serif; /* Setting Times New Roman font */
+                    }
+                </style>
+                <div id="main-container">
+                    <h4>Additional Details:</h4>
+                """, unsafe_allow_html=True)
     col1, col2 = st.columns(2)
 
     with col1:
@@ -367,35 +383,80 @@ def show_prediction_page():
         probability = model.predict_proba(user_data_scaled)[0][1]
         st.write("")
         st.write("")
-        
-        # Define color based on risk level
-        st.subheader("Probability of Risk22:")
+
+        def load_custom_css():
+            css = """
+            /* Base styles for the main container */
+            #main-container {
+                width: 60%;  /* Set the desired width of the main content */
+                margin: 20px auto;  /* Center the container */
+                padding: 0px; /* Padding around the content */
+                border: 0px solid #ccc; /* Adding a border for better visibility */
+                border-radius: 10px; /* Rounded corners */
+                background-color: #f9f9f9; /* Light background for the container */
+            }
+
+            /* Custom styles for error and success messages */
+            .stAlert {
+                margin: 20px 0; /* Space above and below the alert */
+                padding: 10px; /* Padding inside the alert */
+                text-align: center;  /* Center the text */
+                
+            }
+
+            /* Style adjustments for headers and probabilities */
+            h2, h3, h1 {
+                text-align: center;  /* Centering all text headers */
+                color: #333; /* Dark color for better readability */
+            }
+            h1 {
+                margin: 5px 0; /* Tighter margin for the probability header */
+            }
+            """
+            st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
+        load_custom_css()
+        st.markdown("""
+                <style>
+                    #main-container h4 {
+                        color: orange;
+                        padding: auto;
+                        text-align: center;
+                        font-family: 'Times New Roman', Times, serif; /* Setting Times New Roman font */
+                    }
+                </style>
+                <div id="main-container">
+                    <h4>Probability of Risk:</h4>
+                """, unsafe_allow_html=True)
         risk_color = 'red' if prediction[0] == 1 else 'green'
+        alert_type = "High Risk of CHD 🚨" if prediction[0] == 1 else "Low Risk of CHD 🍀"
+        alert_color = "#ffa1a1" if prediction[0] == 1 else "#a1ffad"  # Light red for error, light green for success
+
+        # First, display the metric
+        st.markdown(f"""
+            <div style="text-align: center; margin: 20px 0;">
+                <h2 style="margin: 0; color: {risk_color};">{probability:.2%}</h2>
+            </div>
+            """, unsafe_allow_html=True)
+
+        # Then, simulate an alert box using custom HTML/CSS for centering and styling
+        st.markdown(f"""
+            <div style="background-color: {alert_color}; padding: 10px; border-radius: 5px; text-align: center; width:60%;margin:auto;font-family: 'Times New Roman';">
+                {alert_type}
+            </div>
+            """, unsafe_allow_html=True)
+
+
+       
         
-        if prediction[0] == 1:
-            st.error('High Risk of CHD')
-            # Custom metric using Markdown and HTML for centering
-            st.markdown(f"""
-                <div style="text-align: center; margin: 20px 0;">
-                    <h3 style="margin-bottom: 0;">Probability of Risk</h3>
-                    <h1 style="margin: 0; color: red;">{probability:.2%}</h1>
-                </div>
-                """, unsafe_allow_html=True)
-        else:
-            st.success('Low Risk of CHD')
-            # Custom metric using Markdown and HTML for centering
-            st.markdown(f"""
-                <div style="text-align: center; margin: 20px 0;">
-                    <h3 style="margin-bottom: 0;">Probability of Risk</h3>
-                    <h1 style="margin: 0; color: green;">{probability:.2%}</h1>
-                </div>
-                """, unsafe_allow_html=True)
         st.write("")
         st.write("")
-        st.write("")
-    # Visualization of feature importances
+      
+
+     
+        # Visualization of feature importances
         features = ['Systolic BP', 'Glucose', 'Age', 'Cigarettes per Day', 'Total Cholesterol',
-                    'Diastolic BP', 'Prevalent Hypertension', 'BP Meds', 'Diabetes', 'Gender']
+                'Diastolic BP', 'Prevalent Hypertension', 'BP Meds', 'Diabetes', 'Gender']
         feature_importances = model.feature_importances_
 
         # Create a DataFrame for Plotly
@@ -420,6 +481,18 @@ def show_prediction_page():
 
         # Update layout for better readability and aesthetics
         fig.update_layout(
+            title={
+                'text': "Feature Importance in Predicting CHD",
+                'y': 0.9,
+                'x': 0.5,
+                'xanchor': 'center',
+                'yanchor': 'top'
+            },
+            title_font=dict(
+                color="orange",  # Set the color of the title
+                family="Times New Roman",  # Optionally set the font family to Times New Roman
+                size=20
+            ),
             coloraxis_showscale=False,
             yaxis_title='Importance (%)',
             xaxis_title="Features",
@@ -432,14 +505,47 @@ def show_prediction_page():
         fig.update_traces(marker_line_color='rgb(8,48,107)',
                         marker_line_width=1.5, opacity=0.6)
 
+        # Display the figure in Streamlit
         st.plotly_chart(fig, use_container_width=True)
-
-        st.markdown("### Key Insights")
+       # Dynamic Key Insights based on feature importances
+        
+        #st.markdown("### Key Insights")
         st.markdown("""
-            - <span style='color:#3380FF; font-weight: bold;'>Top Influential Factors:</span> The graph highlights which factors are most important for predicting heart disease.
-            - <span style='color:#3380FF; font-weight: bold;'>High-Risk Indicators:</span> Higher values in features like Systolic Blood Pressure and Glucose levels indicate a greater influence on risk.
-            - <span style='color:#3380FF; font-weight: bold;'>Actionable Advice:</span> Focus on managing the top risk factors to potentially lower your overall risk of CHD.
-        """, unsafe_allow_html=True)
+                <style>
+                    #main-container h4 {
+                        color: orange;
+                        padding: auto;
+                        text-align: center;
+                        font-family: 'Times New Roman', Times, serif; /* Setting Times New Roman font */
+                    }
+                </style>
+                <div id="main-container">
+                    <h4>Key Insights:</h4>
+                """, unsafe_allow_html=True)
+        st.markdown("""
+<style>
+.centered-text {
+    text-align: center; /* Center align text */
+    margin-bottom: 10px; /* Spacing between items */
+}
+.centered-text span {
+    display: block; /* Make span a block to take full width */
+    color: #0074e4;;
+    font-weight: bold;
+    margin-bottom: 5px; /* Spacing between title and description */
+}
+</style>
+<div class="centered-text">
+    <span>Top Influential Factors:</span>
+    <div>The graph highlights which factors are most important for predicting heart disease.</div>
+    <span>High-Risk Indicators:</span>
+    <div>Higher values in features like Systolic Blood Pressure and Glucose levels indicate a greater influence on risk.</div>
+    <span>Actionable Advice:</span>
+    <div>Focus on managing the top risk factors to potentially lower your overall risk of CHD.</div>
+</div>
+""", unsafe_allow_html=True)
+
+  
 
 def main():
     
@@ -447,7 +553,7 @@ def main():
     # Define the sidebar and ensure it remains consistent
     with st.sidebar:
         st.markdown('<h1 class="sidebar-title">Coronary Heart Disease</h1>', unsafe_allow_html=True)
-        st.image('./heart.jpeg')
+        st.image('./heart.jpeg' ,caption="CHD")
         # Create a collapsible container for the project overview
         
         selected = option_menu(None, ["Home", "Prediction"], 
@@ -473,3 +579,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+st.write("")
+st.write("")
+st.sidebar.markdown("<h4 style='color: blue; font-size: 16px;' margin-top:20px; >Made with 💙 Eng. Sameera Al-khalifi</h4>", unsafe_allow_html=True)
