@@ -556,8 +556,9 @@ def main():
         st.image('./heart.jpeg' ,caption="CHD")
         # Create a collapsible container for the project overview
         
-        selected = option_menu(None, ["Home", "Prediction"], 
-                               icons=["house", "gear"], 
+        selected = option_menu(None, ["CHD Analysis", "CHD Prediction"], 
+                              
+                               icons=["bar-chart", "robot"], 
                                default_index=0, orientation="horizontal",
                                styles={
                                    "container": {"padding": "0!important", "background-color": "#fafafa", "width": "100%"},
@@ -572,9 +573,9 @@ def main():
 
             """)    
     # Conditionally display pages based on sidebar selection
-    if selected == "Home":
+    if selected == "CHD Analysis":
         show_home_page()
-    elif selected == "Prediction":
+    elif selected == "CHD Prediction":
         show_prediction_page()
 
 if __name__ == "__main__":
