@@ -554,8 +554,7 @@ def main():
     with st.sidebar:
         st.markdown('<h1 class="sidebar-title">Coronary Heart Disease</h1>', unsafe_allow_html=True)
         st.image('./heart.jpeg' ,caption="CHD")
-        # Create a collapsible container for the project overview
-        
+        # Create the option menu for navigation
         selected = option_menu(None, ["CHD Dashboard", "CHD Prediction"], 
                               
                                icons=["bar-chart", "robot"], 
@@ -567,11 +566,18 @@ def main():
                                    "nav-link-selected": {"background-color": "#3380FF"},
                                })
        
-        with st.expander("Overview"):
+        # Display specific expanders in the sidebar based on selected menu
+        if selected == "CHD Dashboard":
+            with st.expander("Overview"):
                 st.write("""
-            This dataset contains information related to cardiovascular disease risk factors for a group of individuals. Cardiovascular diseases, including heart disease and stroke, are significant health concerns worldwide. Understanding the risk factors associated with these diseases is essential for prevention and management.
+                    This dataset contains information related to cardiovascular disease risk factors for a group of individuals. Cardiovascular diseases, including heart disease and stroke, are significant health concerns worldwide. Understanding the risk factors associated with these diseases is essential for prevention and management.
+                """)
+        elif selected == "CHD Prediction":
+            with st.expander("Overview"):
+                st.write("""
+                    This model aims to predict the risk of coronary heart disease (CHD) in individuals over the next ten years based on a range of health indicators and lifestyle factors. By analyzing inputs like blood pressure, cholesterol levels, and smoking habits, the model helps in identifying individuals at higher risk, facilitating early intervention and preventive healthcare measures.
+                """)
 
-            """)    
     # Conditionally display pages based on sidebar selection
     if selected == "CHD Dashboard":
         show_home_page()
